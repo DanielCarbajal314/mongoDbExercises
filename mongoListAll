@@ -1,0 +1,2 @@
+use newHorizons
+db.clase.find()

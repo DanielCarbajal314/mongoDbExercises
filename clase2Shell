@@ -1,0 +1,11 @@
+db.clase2.insertOne({ user: 'Daniel'})
+db.clase2.insertMany([{ user: 'Daniel'}, { user: 'Luis'}, {user: 'Pedro'}])
+
+db.clase2.insertOne({
+    name: 'Daniel',
+    address: {
+        line1: 'Av La Marina',
+        District: 'La Perla'
+    },
+    hobbies: [ 'fishing', 'Hicking']
+});

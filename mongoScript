@@ -1,0 +1,6 @@
+show dbs
+use newHorizons
+db.clase.insertOne({ name: 'Daniel', lastName:'Carbajal'});
+db.clase.insertOne({ name: 1112, lastName:null});
+db.claseSecond.insertOne({ name: 'Daniel', lastName:'Carbajal'});
+db.claseSecond.insertOne({ name: 1112, lastName:null});
