@@ -9,3 +9,9 @@ db.clase2.insertOne({
     },
     hobbies: [ 'fishing', 'Hicking']
 });
+
+
+// SENTENCIAS LOGICAS COMPUESTAS
+
+db.clase2.find( {$or: [{ isAdmin: true }, {user:'Daniel'}]},{ user: true, _id: false })
+db.clase2.find( {$and: [{ isAdmin: true }, {user:/.*a.*/}]},{ user: true, _id: false })
