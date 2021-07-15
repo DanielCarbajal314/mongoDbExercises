@@ -15,3 +15,23 @@ db.clase2.insertOne({
 
 db.clase2.find( {$or: [{ isAdmin: true }, {user:'Daniel'}]},{ user: true, _id: false })
 db.clase2.find( {$and: [{ isAdmin: true }, {user:/.*a.*/}]},{ user: true, _id: false })
+
+
+// HACER UPDATE
+
+db.clase2.updateMany( 
+    {
+        $or: [
+            { isAdmin: true },
+            {user:'Daniel'}
+        ]
+    }, 
+    [ 
+        { 
+            $set : { 
+                user : 'Martin',
+                lastName : 'Cano'
+            }
+        }, 
+        { $unset:  [ "height" ] }
+    ])
