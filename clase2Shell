@@ -35,3 +35,16 @@ db.clase2.updateMany(
         }, 
         { $unset:  [ "height" ] }
     ])
+
+
+
+
+{
+    $and: [ 
+        {$or: {}}, 
+        {$and: {}}
+    ]
+}
+
+// Busqueda por Objetos Anidados
+ db.clase2.find({ "address.street": 'Kulas Light' })
