@@ -37,3 +37,43 @@ db.listingsAndReviews.aggregate([
 ])
 
 
+db.listingsAndReviews.aggregate([
+    { $project : { "address.country": 1, property_type: 1 } },
+    { $match : { property_type : "Apartment"} },
+    { $group: { _id: "$address.country", cantidad : { $sum: 1 }} }
+])
+
+db.listingsAndReviews.aggregate([
+    { $project : { "address.country": 1, property_type: 1, amenities: 1 } },
+    { $match : { property_type : "House", amenities: "Heating"} },
+    { $group: { _id: "$address.country", cantidad : { $sum: 1 }} }
+])
+
+db.listingsAndReviews.aggregate([
+    { 
+        $project : { 
+            "address.country": 1, 
+            property_type: 1, 
+            "caracteristicaInteres": {
+            $filter: {
+                input: "$amenities",
+                as: "num",
+                cond: { $eq: [ "$$num", "Heating" ] } }
+            }
+        }
+     },
+     {
+        $match : { property_type : "House"}
+     },
+     { 
+         $project : {  "pais":  "$address.country", "tieneCaracteristicaDeInteres" : {
+            $cond : { 
+                if : { $eq: [ { $size: "$caracteristicaInteres"} , 1 ] },
+                then:1, 
+                else:0 
+            } 
+         } }
+     },
+     { $group: { _id: "$pais", promedioDeCalentadores : { $avg: "$tieneCaracteristicaDeInteres" }} },
+     { $sort: { promedioDeCalentadores : -1 }}
+])
