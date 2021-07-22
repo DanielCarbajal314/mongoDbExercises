@@ -13,3 +13,24 @@ db.listingsAndReviews.aggregate([
     { $group: { _id: "$amenities", cantidad : { $sum: 1 }} },
     { $sort: { cantidad : -1 }}
 ])
+
+
+db.listingsAndReviews.aggregate([
+    { $project : { "address.country":1, "address.market":1, reviews: 1 } },
+    { $match : { "address.country" : "United States"}},
+    { $unwind : "$reviews" },
+    { $project : { "reviews.reviewer_name":1 } },
+    { $group: { _id: "$reviews.reviewer_name", cantidad : { $sum: 1 }} },
+    { $sort: { cantidad : -1 }}
+])
+
+db.listingsAndReviews.aggregate([
+    { $project : { "address.country":1, property_type: 1 } },
+    { $group: { _id: { pais: "$address.country", tipoAlquiler: "$property_type"}, cantidad : { $sum: 1 }} },
+    { $sort: { "_id.pais" : 1, cantidad: -1 }}
+])
+
+
+
+
+
