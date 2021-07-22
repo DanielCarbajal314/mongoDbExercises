@@ -30,7 +30,10 @@ db.listingsAndReviews.aggregate([
     { $sort: { "_id.pais" : 1, cantidad: -1 }}
 ])
 
-
-
+db.listingsAndReviews.aggregate([
+    { $project : { "address.country":1, property_type: 1 } },
+    { $group: { _id: { pais: "$address.country", tipoAlquiler: "$property_type"}, cantidad : { $sum: 1 }} },
+    { $project : { "pais": "$_id.pais", "tipoAlquiler": "$_id.tipoAlquiler" , "informacion.cantidad":"$cantidad" } }
+])
 
 
