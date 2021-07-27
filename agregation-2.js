@@ -124,4 +124,84 @@ db.transactions.aggregate([
     }
 ])
 
+// EJECICIOS UNION y Lookup
 
+db.inspections.aggregate([
+    { $project : { city : "$address.city", _id:0 }},
+    { $match: { city : { "$exists":true, "$ne" : '' }}},
+    { $unionWith: {
+        coll: 'zips',
+        pipeline: [
+            { $project : { city : 1 , _id:0 } }
+        ]
+     }
+    },
+    { $sortByCount : "$city"}
+])
+
+db.inspections.aggregate([
+    { $project : { zip : "$address.zip", _id:0 }},
+    { $project : { zip : { $toString: "$zip" }}},   
+    { 
+        $lookup: {
+            from : 'zips',
+            localField: "zip",
+            foreignField: "zip",
+            as: "location"
+        }
+    }
+])
+
+db.shipwrecks.find({
+    coordinates: {
+        $geoWithin: { 
+            $geometry: { 
+                type: 'Polygon',
+                coordinates: [ 
+                    [ 
+                        [ -77.8584823314926, 30.307398975445526 ],
+                        [ -84.75548373025704, 29.851011366489722 ],
+                        [ -85.67801257977328, 24.45728659501252 ],
+                        [ -79.04459085229922, 23.815550947215 ],
+                        [ -75.57412518030948, 24.8567236926757 ],
+                        [ -77.8584823314926, 30.307398975445526 ] 
+                    ] 
+                ] 
+            }
+        }
+    }
+})
+
+
+db.shipwrecks.find({
+    coordinates: {
+        $geoWithin: { 
+            $geometry: { 
+                type: 'Polygon',
+                coordinates: [ 
+                    [
+                        [ -74.74252183449299, 24.110730221501704 ],
+                        [ -74.55993799969289, 23.83337446686628 ],
+                        [ -74.25929243712733, 23.938865060813672 ],
+                        [ -74.31008643628223, 24.18843295693198 ],
+                        [ -74.74252183449299, 24.110730221501704 ]
+                    ] 
+                ] 
+            }
+        }
+    }
+})
+
+// Naufragios cerca a otro
+
+db.shipwrecks.find({
+    coordinates: {
+        $near: { 
+            $geometry: { 
+                type: 'Point',
+                coordinates:  [ -74.460358, 24.126199 ]
+            },
+            $maxDistance: 10
+        }
+    }
+})
