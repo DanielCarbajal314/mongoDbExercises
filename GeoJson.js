@@ -1,3 +1,7 @@
+// PARA CREAR INDICES SPACIALES
+db.COLECCION.createIndex({ CAMPO_GEO_ESPACIL : "2dsphere" } )
+
+
 db.shipwrecks.aggregate([
     { 
         $match : {  
