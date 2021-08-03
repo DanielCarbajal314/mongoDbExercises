@@ -48,3 +48,54 @@ db.puntoEnArequipa.find({
         }
     }
 })
+
+db.shipwrecks.aggregate([
+    { 
+        $geoNear : {  
+            near: { type: "Point", coordinates: [47.552160, -122.321077] },
+            distanceField: 'distanciaCalculada',
+            includeLocs: "coordinates"
+        } 
+    }
+])
+
+
+db.puntoEnArequipa.aggregate([
+    {
+      $geoNear: {
+         near: { type: "Point", coordinates:  [47.552160, -122.321077] },
+         distanceField: "distanciaCalculada",
+         includeLocs: "address",
+         query: { },
+         spherical: true
+      }
+    }
+ ])
+
+
+ //EJERCICIO 1
+
+    db.accounts.aggregate([
+        { $unwind: "$products" }, 
+        { $group : { _id: "$products", cantidad : { $sum:1 }}},
+        { $sort: { cantidad: -1 }}
+    ]);
+    // Simplificado
+    db.accounts.aggregate([
+        { $unwind: "$products" }, 
+        { $sortByCount: "$products"}
+    ]);
+
+    db.accounts.aggregate([
+        { $match : { limit: { $lte : 9000 }}},
+        { $unwind: "$products" }, 
+        { $sortByCount: "$products"}
+    ]);
+
+    db.accounts.aggregate([
+        { $match : { limit: { $gte : 10000 }}},
+        { $unwind: "$products" }, 
+        { $sortByCount: "$products"}
+    ]);
+
+
