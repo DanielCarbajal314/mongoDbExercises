@@ -98,4 +98,47 @@ db.puntoEnArequipa.aggregate([
         { $sortByCount: "$products"}
     ]);
 
+// SEGUNDO PROBLEMA
+
+    db.movies.aggregate([
+        { $project: { Director:"$directors",  Genero: "$genres", _id:0  }},
+        { $unwind: "$Director" },
+        { $unwind: "$Genero" },
+        { $group : { _id : {Director : '$Director'}, Genero : { $addToSet: '$Genero' } } }
+    ]);
+    
+    db.movies.aggregate([
+        { $project : { Genero: "$genres", Director: "$directors", _id:0 } },
+        { $unwind: "$Genero"},
+        { $unwind: "$Director"},
+        { $group : { _id: { Director:"$Director", Genero:"$Genero" }, Cantidad : { $sum: 1 }}},        
+        { $group : { _id: "$_id.Director", PeliculasPorGenero : { $push: {  Genero:"$_id.Genero", Cantidad :"$Cantidad"} }}}
+    ])
+
+
+// TERCER EJERCICIO
+
+db.theaters.aggregate([
+    { $project: { Ciudad:"$location.address.city" }},
+    { $sortByCount: "$Ciudad"}
+]);
+
+db.sales.aggregate([
+    { $unwind: "$items"},    
+    { $unwind: "$items.tags"},
+    { $sortByCount: "$items.tags"}
+]);
+
+db.restaurants.aggregate([
+    { $unwind: "$grades"},
+    { $group : { _id: "$name", Cantidad : { $avg: "$grades.score" }}},  
+    { $sort: { Cantidad: -1}}   
+]);
+
+db.restaurants.aggregate([
+    { $unwind: "$grades"},
+    { $group : { _id: "$cuisine", Cantidad : { $avg: "$grades.score" }}},
+    { $sort: { Cantidad: -1}}
+]);
+
 
