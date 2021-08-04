@@ -16,3 +16,25 @@ db.listingsAndReviews.aggregate([
 ])
 
 //db.collection.createIndex({field: "2dsphere" } )
+
+// EJERCICIO 1 CLase 4-2
+
+db.data.aggregate([
+    {
+        $geoNear : {
+            near: { type: "Point", coordinates:[21.851463, -78.215034]},
+            distanceField : "distanciaACuba",
+            maxDistance: 150000,
+            key: "position"
+        },
+    },
+    {
+        $project: {
+            distanciaACuba: 1,
+            type: 1,
+            _id:0
+        }
+    }
+])
+
+db.data.createIndex({position: "2dsphere" } )
