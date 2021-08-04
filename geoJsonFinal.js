@@ -14,3 +14,5 @@ db.listingsAndReviews.aggregate([
         }
     }
 ])
+
+//db.collection.createIndex({field: "2dsphere" } )
