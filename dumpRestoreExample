@@ -1,0 +1,4 @@
+mongodump --config="cloudDb.yml" --db="sample_supplies" --collection="sales"
+bsondump --outFile=sales.json dump/sample_supplies/sales.bson 
+mongorestore --config="localDb.yml" /dump
+
