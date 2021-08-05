@@ -1,0 +1,7 @@
+{"_id":"Oahu","precioMedio":{"$numberDecimal":"212.2964426877470355731225296442688"}}
+{"_id":"New York","precioMedio":{"$numberDecimal":"139.6260296540362438220757825370675"}}
+{"_id":"","precioMedio":{"$numberDecimal":"137.00"}}
+{"_id":"Maui","precioMedio":{"$numberDecimal":"286.5882352941176470588235294117647"}}
+{"_id":"Kauai","precioMedio":{"$numberDecimal":"288.8208955223880597014925373134328"}}
+{"_id":"The Big Island","precioMedio":{"$numberDecimal":"179.4604316546762589928057553956835"}}
+{"_id":"Other (Domestic)","precioMedio":{"$numberDecimal":"128.00"}}

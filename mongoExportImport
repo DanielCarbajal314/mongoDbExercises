@@ -1,0 +1,2 @@
+mongoexport --config=cloudDb.yml --db=sample_airbnb --collection=PromedioUSA --out=averageUSA.json
+mongoimport --config=localDb.yml --db=curso --collection=promediosUSA --file="averageUSA.json" --authenticationDatabase admin
