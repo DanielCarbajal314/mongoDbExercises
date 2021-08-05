@@ -1,4 +1,4 @@
-const {getConnectedDatabase} = require('./database-builder')
+const {getConnectedDatabase} = require('./ClasesPasadas/database-builder')
 
 getConnectedDatabase('sample_weatherdata')
 .then(db => 

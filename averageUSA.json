@@ -4,4 +4,4 @@
 {"_id":"Maui","precioMedio":{"$numberDecimal":"286.5882352941176470588235294117647"}}
 {"_id":"Kauai","precioMedio":{"$numberDecimal":"288.8208955223880597014925373134328"}}
 {"_id":"The Big Island","precioMedio":{"$numberDecimal":"179.4604316546762589928057553956835"}}
-{"_id":"Other (Domestic)","precioMedio":{"$numberDecimal":"128.00"}}
+{"_id":"Other (Domestic)","precioMedio":{"$numberDecimal":"1213128.00"}}
